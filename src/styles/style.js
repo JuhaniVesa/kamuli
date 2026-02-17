@@ -97,8 +97,8 @@ const styles = {
   boardRow: { display: "flex", gap: "clamp(6px, 1.8vw, 8px)", paddingBottom: 5 },
 
   cell: {
-    width: "clamp(40px, 10vw, 56px)",
-    height: "clamp(40px, 10vw, 56px)",
+    width: "clamp(50px, 10vw, 56px)",
+    height: "clamp(50px, 10vw, 56px)",
     display: "grid",
     placeItems: "center",
     fontWeight: 700,

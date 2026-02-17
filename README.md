@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Kamuli - moninpelattava Wordle/Sanuli. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Kamuli on couch co-op monin pelattava Wordle/Sanuli-peli. Peliä pelataan samassa tilassa yhteisen näytön äärellä: host luo pelisession ja muut liittyvät QR-koodilla omilla laitteillaan. 
 
-## Available Scripts
 
-In the project directory, you can run:
+### Ominaisuudet
 
-### `npm start`
+- Moninpeli sessioilla — Luodaan jokaiselle pelikerralle uusi sessio
+- Aula: 
+ - Näkyy pelaajat, pelaajien pisteet, ketkä ovat jo arvanneet ja viimeisin arvaus (värilaatikoina)
+ - Mahdollisuus valita kierrosmäärä kuinka monta sanaa arvataan (5/10/15)
+ - Pelikerran tulostaulu sekä mahdollisuus aloittaa uusi peli
+ - Backend hallinnoi peliä (arvauksien validointi, pisteytys, kierrokset ja pelin eteminen). Backend toimii ns. "source of truth" -periaatteella, jolloin vähennetetään frontendin mahdollisuutta manipuloida peliä. Kierros päättyy automaattisesti kun kaikki ovat arvanneet tai ratkaisseet sanan.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Pelimuodot
+ - Kaksi eri pelimuotoa:
+    - Klassinen: 1 piste / ratkaistu sana
+    - Painotettu: 
+        1. arvaus = 9p
+        2. = 7p
+        3. = 5p
+        4. = 4p
+        5. = 2p
+        6. = 1p
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+### Peli flow
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Avaa sovellus
+2. Luo uusi sessio, joka luo QR-koodin
+3. Pelaajat lukevat QR-koodin ja asettavat nimimerkin
+4. Avaa Aula -näkymä, valitkaa pelimuoto ja kierros pituus sekä tarkistakaa, että kaikki pelaajat ovat liittyneet
+5. Aloittakaa peli
+6. Pelatkaa
+7. Ihailkaa tulostaulua ja pelatkaa uusi peli halutessanne
 
-### `npm run build`
+### Teknologiat
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Frontend: React
+- Backend: Node.js + Express
+- Moninpelin synkkaus: Pollaus
+- Sanalista: .txt -tiedosto
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Projektin käynnistys paikallisesti
+Serverin käynnistys:
+- cd server -> npm install -> npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Frontin käynnistys:
+- npm install -> npm mobiilistart (jotta saadaan myös älylaite yhdistettyä)
 
-### `npm run eject`
+Verkkoasetuksista profiilin tyypiksi "Private network"
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### API 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+POST:
+- /session – Luo uuden session
+- /join – Liittää pelaajan sessioon
+- /start – Aloittaa pelin ja valitsee asetukset
+- /guess – Lähettää ja validoi arvauksia, pisteitä, kierroksen lukumääriä jne.
+- /restart – Aloittaa uuden pelin
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GET:
+- /state – Aulan/pelin tilanne
+- /me – Pelaajakohtainen tila
