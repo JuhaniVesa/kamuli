@@ -9,7 +9,7 @@ Kamuli on couch co-op monin pelattava Wordle/Sanuli-peli. Peliä pelataan samass
 
 <img src="screenshots/kamuli_game.png" width="300">
 
-<img src="screenshots/kamuli_tulostaulu.png" width="300">
+<img src="screenshots/kamuli_tulostaulu.png" width="500">
 </p>
 
 ### Ominaisuudet
