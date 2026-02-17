@@ -25,12 +25,12 @@ Kamuli on couch co-op monin pelattava Wordle/Sanuli-peli. Peliä pelataan samass
  - Kaksi eri pelimuotoa:
     - Klassinen: 1 piste / ratkaistu sana
     - Painotettu: 
-        \- 1. arvaus = 9p
-        \- 2. = 7p
-        \- 3. = 5p
-        \- 4. = 4p
-        \- 5. = 2p
-        \- 6. = 1p
+1. arvaus = 9p
+2. = 7p
+3. = 5p
+4. = 4p
+5. = 2p
+6. = 1p
 
 
 ### Peli flow
