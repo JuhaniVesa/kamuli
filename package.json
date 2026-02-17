@@ -7,13 +7,18 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.13.2",
+    "dotenv": "^17.3.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "react-qr-code": "^2.0.18",
+    "react-router-dom": "^7.12.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
+    "mobiilistart": "react-scripts start --host 0.0.0.0",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
