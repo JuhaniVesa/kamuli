@@ -185,9 +185,9 @@ export default function Chat() {
                   player.nickname
                 ) : (
                   <>
-                {player.nickname} - Pisteet: {player.score} - Onko arvannut: {player.submitted ? "Kyllä" : "Ei"} - 
+                {player.nickname} - Pisteet: {player.score} - Onko arvannut: {player.submitted ? "✓" : "✕"} - 
                  viimeisin arvaus: {player.lastScore && 
-                ( <span style={{marginLeft: 10,  gap: 4}}> 
+                ( <span style={{marginLeft: 10}}> 
                   {player.lastScore.map((v, i) => (
                     <span key={i} style={cellStyle(v)}/>
                 ))}
