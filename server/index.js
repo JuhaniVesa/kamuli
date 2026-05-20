@@ -423,6 +423,31 @@ app.post('/join', (req, res) => {
     });
 });
 
+// Sessions -objektin siivous, joka poistaa vanhentuneet sessiot, joissa ei ole ollut toimintaa yli 24 tuntiin. 
+// Tämä auttaa hallitsemaan muistinkäyttöä ja varmistamaan, että vanhentuneet sessiot eivät kuormita palvelinta tarpeettomasti.
+
+let lastCleanUpDate = null;
+
+setInterval(() => {
+    const now = new Date();
+
+    const today = now.toISOString().slice(0, 10); // esim. 2026-01-01
+
+    if (now.getHours() === 3 && now.getMinutes() === 0) {
+        if (lastCleanUpDate === today) return;
+
+        if (Object.keys(sessions).length === 0) {
+            console.log("Cleaning sessions at 03:00");
+
+            for (const sessionId of Object.keys(sessions)) {
+                delete sessions[sessionId];
+            }            
+    }
+
+    lastCleanUpDate = today;
+    }
+}, 60 * 1000) // tarkistetaan joka minuutti, onko aika siivota sessiot
+
 app.listen(port, "0.0.0.0", () => {
     console.log(`Server is running on port: ${port}`);
 
