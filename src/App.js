@@ -6,7 +6,7 @@ import Laheta from './components/Laheta';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/kamuli'>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/chat" element={<Chat />} />

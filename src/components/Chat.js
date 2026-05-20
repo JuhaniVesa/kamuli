@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import styles from "../styles/style";
 import axios from "axios";
 
-const URL = `http://${window.location.hostname}:3001`;
+const API_URL = `http://${window.location.hostname}:3001`;
 
 export default function Chat() {
 
@@ -40,7 +40,7 @@ export default function Chat() {
 
 // Funktio, joka hakee palvelimelta pelaajatiedot, pelin tilan ja muut olennaiset tiedot, ja päivittää komponentin tilan näiden tietojen perusteella. Tämä funktio kutsutaan useEffect-koukussa, joka tarkkailee urlSessionId:tä, ja hakee tietoja säännöllisin väliajoin varmistaakseen, että pelaajatiedot ja pelin tila pysyvät ajan tasalla.
   const FetchPlayers =() => {
-    axios.get(URL + "/state", { params: { sessionId: urlSessionId } })
+    axios.get(API_URL + "/state", { params: { sessionId: urlSessionId } })
           .then(response => {
               setPlayers(response.data.players);
               setStarted(response.data.started)
@@ -58,7 +58,7 @@ export default function Chat() {
 // Funktio, joka lähettää palvelimelle pyynnön pelin aloittamiseksi. Tämä funktio tarkistaa myös, että peliin on liittynyt pelaajia ja että max round -asetus on valittu ennen pelin aloittamista.
   const startGame = async () => {
     try {
-      await axios.post(URL + "/start", {sessionId: urlSessionId, maxRounds: selectedMaxRounds, scoreMode: scoreMode})
+      await axios.post(API_URL + "/start", {sessionId: urlSessionId, maxRounds: selectedMaxRounds, scoreMode: scoreMode})
   } catch (e) {
   alert(e.response?.data?.error || "Start epäonnistui");
   }
@@ -80,7 +80,7 @@ export default function Chat() {
 // Funktio, joka lähettää palvelimelle pyynnön pelin uudelleenkäynnistämiseksi. Tämä funktio kutsutaan, kun peli on päättynyt ja pelaajat haluavat aloittaa uuden pelin.
     const restartGame = async () => {
       try {
-        await axios.post(URL + "/restart", {sessionId: urlSessionId})
+        await axios.post(API_URL + "/restart", {sessionId: urlSessionId})
         FetchPlayers()
     } catch (e) {
     alert(e.response?.data?.error || "Start epäonnistui");

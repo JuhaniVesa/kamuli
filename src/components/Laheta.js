@@ -5,7 +5,7 @@ import Keyboard from "./Keyboard";
 import styles from "../styles/style";
 
 
-const URL = `http://${window.location.hostname}:3001`;
+const API_URL = `http://${window.location.hostname}:3001`;
 
 // Laheta-komponentti vastaa pelin arvausnäkymästä, jossa pelaajat voivat syöttää arvauksiaan, nähdä edelliset arvaukset ja niiden tilan (oikein, väärässä paikassa, väärin). 
 // Pelaajat voivat myös nähdä oman nimimerkkinsä ja odottaa muiden pelaajien arvausyrityksiä. Näppäimistökomponentti on integroitu tähän näkymään, ja se tarjoaa visuaalisen palautteen aiemmista arvauksista.
@@ -75,6 +75,11 @@ export default function Laheta() {
   const addNickname = async (e) => {
     e.preventDefault();
 
+    console.log("JOIN submit:");
+    console.log("sessionId:", urlSessionId);
+    console.log("nickname:", nicknameInput);
+    console.log("API:", API_URL + "/join");
+
     if(!urlSessionId) {
       alert('Session ID puuttuu URL-osoitteesta.');
       return;
@@ -88,7 +93,7 @@ export default function Laheta() {
     try {
       setIsJoining(true);
 
-      const response = await axios.post(URL + '/join', {
+      const response = await axios.post(API_URL + '/join', {
         sessionId: urlSessionId,
         nickname: nicknameInput
 
@@ -117,7 +122,7 @@ export default function Laheta() {
 // Funktio, joka hakee pelaajan tilan palvelimelta, mukaan lukien onko pelaaja jo lähettänyt arvauksen, onko pelaaja ratkaissut sanan, nykyinen kierros, pelaajan pisteet ja aiemmat arvausyritykset. Tämä funktio kutsutaan useEffect-koukussa, joka tarkkailee urlSessionId:tä ja playerToken:ia, ja hakee tietoja säännöllisin väliajoin varmistaakseen, että pelaajan tila pysyy ajan tasalla pelin edetessä.    
   const PlayerStatus = () => {
     if (urlSessionId && playerToken) {
-      axios.get(URL + '/me', {params: {sessionId: urlSessionId}, headers: {'x-player-token' : playerToken}})
+      axios.get(API_URL + '/me', {params: {sessionId: urlSessionId}, headers: {'x-player-token' : playerToken}})
       .then(response => {
         setHasSubmitted(response.data.submitted)
         setHasSolved(response.data.hasSolved)
@@ -179,7 +184,7 @@ export default function Laheta() {
       }
 
       try {
-        const response = await axios.post(URL + '/guess', { 
+        const response = await axios.post(API_URL + '/guess', { 
           sessionId: urlSessionId, 
           token: playerToken, 
           guess: trimGuess 
